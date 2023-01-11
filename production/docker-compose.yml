@@ -1,0 +1,24 @@
+version: '3.7'
+services:
+  productive-apache:
+    container_name: 'productive-apache'
+    image: productive-apache:latest
+    build:
+      context: .
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - ./httpd.conf:/etc/apache2/httpd.conf
+      - /var/www/spansky.de/html/:/var/www/localhost/htdocs/
+      - /docker-volumes/etc/letsencrypt/live/magicpony.de/cert.pem:/etc/letsencrypt/live/magicpony.de/cert.pem
+      - /docker-volumes/etc/letsencrypt/live/magicpony.de/fullchain.pem:/etc/letsencrypt/live/magicpony.de/fullchain.pem
+      - /docker-volumes/etc/letsencrypt/live/magicpony.de/privkey.pem:/etc/letsencrypt/live/magicpony.de/privkey.pem
+      - /home/leon/logs/test1/:/var/www/logs/
+    networks:
+      - docker-network
+    environment: 
+      - server_name=magicpony.de
+networks:
+  docker-network:
+    driver: bridge
