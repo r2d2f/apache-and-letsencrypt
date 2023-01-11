@@ -170,16 +170,7 @@ For the following commands I assume you run them while beeing in the `./letsencr
 * When your webserver is running, start the certbot docker (from dockerhub)
 
 ```bash
-sudo docker run -it --rm \
--v /docker-volumes/etc/letsencrypt:/etc/letsencrypt \
--v /docker-volumes/var/lib/letsencrypt:/var/lib/letsencrypt \
--v $PWD/html:/data/letsencrypt \
--v /docker-volumes/var/log/letsencrypt:/var/log/letsencrypt \
-certbot/certbot \
-certonly --webroot \
---email leon.sczepansky@example.org --agree-tos --no-eff-email \
---webroot-path=/data/letsencrypt \
--d magicpony.de -d www.magicpony.de
+sudo docker run -it --rm -v $PWD/volumes/etc/letsencrypt:/etc/letsencrypt -v $PWD/volumes/var/lib/letsencrypt:/var/lib/letsencrypt -v $PWD/html:/data/letsencrypt -v $PWD/volumes/var/log/letsencrypt:/var/log/letsencrypt certbot/certbot certonly --webroot --email aferreira@nts.com.py --agree-tos --no-eff-email --webroot-path=/data/letsencrypt -d fundapp.fundassa.org
 ```
 
 * After you got the success message in your command line's output you stop the temporary apache via `docker-compose down`
